@@ -1,0 +1,59 @@
+---
+- name: download Go
+  get_url: url={{ go_dl_location }}
+           force=yes
+           dest=/tmp
+#           sha256sum={{ go_sha1checksum }}
+
+- name: mkdir Go's dir
+  sudo: yes
+  file: path=/usr/local/go
+        state=directory
+        owner={{ local_user }}
+        group={{ local_user }}
+        mode=0755
+
+- name: install Go
+  sudo: yes
+  unarchive: src=/tmp/{{ go_tar_ball }}
+             dest=/usr/local/go
+
+- name: rename Go install directory name
+  sudo: yes
+  command: mv /usr/local/go/go /usr/local/go/{{ go_version }}
+
+- name: change dir and files permission
+  sudo: yes
+  file: path=/usr/local/go/{{ go_version }}
+        state=directory
+        owner={{ local_user }}
+        group={{ local_user }}
+        mode=0755
+        recurse=yes
+
+- name: mkdir GOPATH dir
+  file: path={{ local_user }}/go
+        state=directory
+        owner={{ local_user }}
+        group={{ local_user }}
+        mode=0755
+
+- name: add path for Go
+  lineinfile:
+    dest="{{ local_home }}/.zshrc.local"
+    line="{{ item }}"
+    owner={{ local_user }}
+    state=present
+    insertafter=EOF
+    create=True
+  with_items:
+    - "export GOROOT=/usr/local/go/{{ go_version }}"
+    - "export GOPATH={{ local_home }}/go"
+    - "export $PATH:$GOROOT/bin:$GOPATH/bin:$PATH"
+
+- name: go get go-tools
+  shell: /usr/bin/zsh -lc "go/{{ go_version }}/bin/go get github.com/{{ item }}"
+  with_items:
+    - nsf/gocode
+    - golang/golint
+    - peco/peco/cmd/peco

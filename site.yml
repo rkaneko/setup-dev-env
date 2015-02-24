@@ -1,0 +1,14 @@
+---
+- hosts: all
+  vars:
+  vars_prompt:
+    - name: "svn_username"
+      prompt: "\n\nEnter your svn.dev.cybozu.co.jp account.\n\nUsername"
+      private: false
+    - name: "svn_password"
+      prompt: "\nPassword"
+      private: true
+
+- hosts: develop
+  roles:
+    - develop

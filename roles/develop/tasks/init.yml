@@ -1,0 +1,7 @@
+---
+- name: mkdir ~/tmp
+  file: path={{ local_home }}/tmp
+        state=directory
+        owner={{ local_user }}
+        group={{ local_user }}
+        mode=644

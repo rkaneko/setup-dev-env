@@ -1,0 +1,22 @@
+---
+- name: add git-core ppa
+  sudo: yes
+  apt_repository: repo='ppa:git-core/ppa'
+
+- name: install git
+  sudo: yes
+  apt: name={{ item }}
+       install_recommends=no
+       update_cache=yes
+       state=present
+  with_items:
+    - git-core
+    - git
+    - git-doc
+
+- name: install mercurial
+  sudo: yes
+  apt: name=mercurial
+       install_recommends=no
+       update_cache=yes
+       state=present

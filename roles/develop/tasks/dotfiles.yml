@@ -1,0 +1,92 @@
+---
+- name: rm dotifles
+  file: path={{ local_home }}/dotfiles
+        state=absent
+
+- name: git clone dotfiles
+  command: git clone https://github.com/rkaneko/dotfiles.git {{ local_home }}/dotfiles
+
+- name: mkdir bundle's dir
+  file: path={{ local_home }}/dotfiles/.vim/bundle
+        state=directory
+        owner={{ local_user }}
+        group={{ local_user }}
+        mode=0755
+
+- name: install NeoBundle.vim
+  command: git clone https://github.com/Shougo/neobundle.vim.git {{ local_home }}/dotfiles/.vim/bundle/neobundle.vim
+
+- name: clean dotfiles
+  file: path={{ local_home }}/{{ item.symlink }}
+        state=absent
+  with_items:
+    - origin: ".vim"
+      symlink: ".vim"
+    - origin: ".vimrc"
+      symlink: ".vimrc"
+    - origin: ".gvimrc"
+      symlink: ".gvimrc"
+    - origin: ".tigrc"
+      symlink: ".tigrc"
+    - origin: ".peco"
+      symlink: ".peco"
+    - origin: ".tmux/tmux.conf"
+      symlink: ".tmux.conf"
+    - origin: ".tmux/.tmux-powerlinerc"
+      symlink: ".tmux-powerlinerc"
+    - origin: ".zsh/.zlogin"
+      symlink: ".zlogin"
+    - origin: ".zsh/.zlogout"
+      symlink: ".zlogout"
+    - origin: ".zsh/.zpreztorc"
+      symlink: ".zpreztorc"
+    - origin: ".zsh/.zshenv"
+      symlink: ".zshenv"
+    - origin: ".zsh/.zprofile"
+      symlink: ".zprofile"
+    - origin: ".zsh/.zshrc"
+      symlink: ".zshrc"
+    - origin: "git/dotgitignore"
+      symlink: ".gitignore"
+    - origin: "git/.gitconfig"
+      symlink: ".gitconfig"
+
+
+- name: set up dotfiles
+  command: ln -s {{ local_home }}/dotfiles/{{ item.origin }} {{ local_home }}/{{ item.symlink }}
+  with_items:
+    - origin: ".vim"
+      symlink: ".vim"
+    - origin: ".vimrc"
+      symlink: ".vimrc"
+    - origin: ".gvimrc"
+      symlink: ".gvimrc"
+    - origin: ".tigrc"
+      symlink: ".tigrc"
+    - origin: ".peco"
+      symlink: ".peco"
+    - origin: ".tmux/tmux.conf"
+      symlink: ".tmux.conf"
+    - origin: ".tmux/.tmux-powerlinerc"
+      symlink: ".tmux-powerlinerc"
+    - origin: ".zsh/.zlogin"
+      symlink: ".zlogin"
+    - origin: ".zsh/.zlogout"
+      symlink: ".zlogout"
+    - origin: ".zsh/.zpreztorc"
+      symlink: ".zpreztorc"
+    - origin: ".zsh/.zshenv"
+      symlink: ".zshenv"
+    - origin: ".zsh/.zprofile"
+      symlink: ".zprofile"
+    - origin: ".zsh/.zshrc"
+      symlink: ".zshrc"
+    - origin: "git/dotgitignore"
+      symlink: ".gitignore"
+    - origin: "git/.gitconfig"
+      symlink: ".gitconfig"
+
+- name: git submodule update --init
+  command: git submodule update --init
+  args:
+    chdir: "{{ local_home }}/dotfiles"

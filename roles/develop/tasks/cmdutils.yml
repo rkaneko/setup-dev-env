@@ -1,0 +1,13 @@
+---
+- name: install cmd utilities
+  sudo: yes
+  apt: name={{ item }}
+       install_recommends=no
+       update_cache=yes
+       state=present
+  with_items:
+    - xclip
+    - xsel
+    - silversearcher-ag
+    - tree
+    - tig

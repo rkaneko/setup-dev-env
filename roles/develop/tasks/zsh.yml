@@ -1,0 +1,16 @@
+---
+- name: install zsh
+  sudo: yes
+  apt: name={{ item }}
+       install_recommends=no
+       update_cache=yes
+       state=present
+  with_items:
+    - zsh
+
+- name: touch .zshrc.local
+  command: touch {{ local_home }}/.zshrc.local
+
+- name: change login shell
+  sudo: yes
+  command: chsh -s /usr/bin/zsh

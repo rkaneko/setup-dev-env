@@ -1,0 +1,13 @@
+---
+- name: install Vim
+  sudo: yes
+  apt: name={{ item }}
+       install_recommends=no
+       update_cache=yes
+       state=present
+  with_items:
+    - vim
+    - vim-nox
+    - vim-gtk
+    - vim-gnome
+    - vim-athena
