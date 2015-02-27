@@ -16,7 +16,7 @@ $ sudo pip install ansible
 ### Usage
 
 ```bash
-$ ansible-playbook -i local site.yml --ask-sudo-pass
+$ ansible-playbook -i localhost site.yml --ask-sudo-pass
 # step exec
-$ ansible-playbook -i local site.yml --ask-sudo-pass --step
+$ ansible-playbook -i localhost site.yml --ask-sudo-pass --step
 ```
