@@ -1,0 +1,51 @@
+---
+- name: install tmux dependencies
+  sudo: yes
+  apt: name={{ item }}
+       install_recommends=no
+       update_cache=yes
+       state=present
+  with_items:
+    - libevent-dev
+    - ncurses-dev
+
+- name: download tmux
+  sudo: yes
+  get_url: url={{ tmux_dl_location }}
+           force=yes
+           dest=/usr/local/src
+
+- name: unarchive tmux
+  sudo: yes
+  unarchive: src=/usr/local/src/{{ tmux_tar_ball }}
+             dest=/usr/local/src
+
+# - name: clean tmux
+#   sudo: yes
+#   command: make clean
+#   args:
+#     chdir: /usr/local/src/{{ tmux_name}}{{ tmux_patch_version }}
+
+# - name: distclean tmux
+#   sudo: yes
+#   command: make distclean
+#   args:
+#     chdir: /usr/local/src/{{ tmux_name}}{{ tmux_patch_version }}
+
+- name: configure tmux
+  sudo: yes
+  command: ./configure
+  args:
+    chdir: /usr/local/src/{{ tmux_name}}{{ tmux_patch_version }}
+
+- name: build tmux
+  sudo: yes
+  command: make
+  args:
+    chdir: /usr/local/src/{{ tmux_name}}{{ tmux_patch_version }}
+
+- name: install tmux
+  sudo: yes
+  command: make install
+  args:
+    chdir: /usr/local/src/{{ tmux_name}}{{ tmux_patch_version }}

@@ -1,0 +1,34 @@
+---
+- name: remove pyenv dir if exists
+  file: path={{ local_home }}/.pyenv
+        state=absent
+
+- name: git clone pyenv 
+  command: git clone https://github.com/yyuu/pyenv.git {{ local_home }}/.pyenv
+
+- name: add path for pyenv
+  lineinfile:
+    dest="{{ local_home }}/.zshrc.local"
+    line="{{ item }}"
+    owner={{ local_user }}
+    state=present
+    insertafter=EOF
+    create=True
+  with_items:
+    - "export PYENV_ROOT=$HOME/.pyenv"
+    - "export PATH=$PYENV_ROOT/bin:$PATH"
+    - "eval $(pyenv init -)"
+
+- name: git clone pyenv-virtualenv
+  command: git clone https://github.com/yyuu/pyenv-virtualenv.git {{ local_home }}/.pyenv/plugins/.pyenv-virtualenv
+
+- name: add path for pyenv
+  lineinfile:
+    dest="{{ local_home }}/.zshrc.local"
+    line="{{ item }}"
+    owner={{ local_user }}
+    state=present
+    insertafter=EOF
+    create=True
+  with_items:
+    - "eval $(pyenv virtualenv-init -)"

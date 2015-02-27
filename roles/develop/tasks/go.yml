@@ -18,6 +18,11 @@
   unarchive: src=/tmp/{{ go_tar_ball }}
              dest=/usr/local/go
 
+- name: remove Go current version's dir if exists
+  sudo: yes
+  file: path=/usr/local/go/{{ go_version }}
+        state=absent
+
 - name: rename Go install directory name
   sudo: yes
   command: mv /usr/local/go/go /usr/local/go/{{ go_version }}
@@ -32,7 +37,7 @@
         recurse=yes
 
 - name: mkdir GOPATH dir
-  file: path={{ local_user }}/go
+  file: path={{ local_home }}/go
         state=directory
         owner={{ local_user }}
         group={{ local_user }}
@@ -48,12 +53,14 @@
     create=True
   with_items:
     - "export GOROOT=/usr/local/go/{{ go_version }}"
+    - "export PATH=$GOROOT/bin:$PATH"
     - "export GOPATH={{ local_home }}/go"
-    - "export $PATH:$GOROOT/bin:$GOPATH/bin:$PATH"
+    - "export PATH=$GOPATH/bin:$PATH"
 
 - name: go get go-tools
-  shell: /usr/bin/zsh -lc "go/{{ go_version }}/bin/go get github.com/{{ item }}"
+  shell: /usr/bin/zsh -lc "go get github.com/{{ item }}"
   with_items:
     - nsf/gocode
-    - golang/golint
+    - golang/lint
     - peco/peco/cmd/peco
+    - motemen/ghq

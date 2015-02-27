@@ -2,10 +2,10 @@
 - hosts: all
   vars:
   vars_prompt:
-    - name: "svn_username"
-      prompt: "\n\nEnter your svn.dev.cybozu.co.jp account.\n\nUsername"
+    - name: "github_username"
+      prompt: "\n\nEnter your github.com account.\n\nUsername"
       private: false
-    - name: "svn_password"
+    - name: "github_password"
       prompt: "\nPassword"
       private: true
 

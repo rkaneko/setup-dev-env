@@ -1,0 +1,3 @@
+---
+- name: git clone Prezto
+  command: git clone https://github.com/sorin-ionescu/prezto {{ local_home }}/.zprezto

@@ -13,4 +13,4 @@
 
 - name: change login shell
   sudo: yes
-  command: chsh -s /usr/bin/zsh
+  user: name={{ local_user }} state=present shell=/usr/bin/zsh
