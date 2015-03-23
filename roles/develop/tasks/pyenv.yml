@@ -20,7 +20,7 @@
     - "eval $(pyenv init -)"
 
 - name: git clone pyenv-virtualenv
-  command: git clone https://github.com/yyuu/pyenv-virtualenv.git {{ local_home }}/.pyenv/plugins/.pyenv-virtualenv
+  command: git clone https://github.com/yyuu/pyenv-virtualenv.git {{ local_home }}/.pyenv/plugins/pyenv-virtualenv
 
 - name: add path for pyenv
   lineinfile:
