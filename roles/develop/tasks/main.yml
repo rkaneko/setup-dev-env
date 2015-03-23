@@ -1,11 +1,11 @@
 ---
-  # - include: init.yml
-  # - include: vcs.yml
-  # - include: dotfiles.yml
-  # - include: zsh.yml
-  # - include: vim.yml
-  # - include: cmdutils.yml
+  - include: init.yml
+  - include: vcs.yml
+  - include: dotfiles.yml
+  - include: zsh.yml
+  - include: vim.yml
+  - include: cmdutils.yml
   - include: go.yml
-  # - include: tmux.yml
-  # - include: prezto.yml
-  # - include: pyenv.yml
+  - include: tmux.yml
+  - include: prezto.yml
+  - include: pyenv.yml

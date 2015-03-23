@@ -57,10 +57,10 @@
     - "export GOPATH={{ local_home }}/go"
     - "export PATH=$GOPATH/bin:$PATH"
 
-- name: go get go-tools
-  shell: /usr/bin/zsh -lc "go get github.com/{{ item }}"
-  with_items:
-    - nsf/gocode
-    - golang/lint
-    - peco/peco/cmd/peco
-    - motemen/ghq
+#- name: go get go-tools
+#  shell: /usr/bin/zsh -lc "go get github.com/{{ item }}"
+#  with_items:
+#    - nsf/gocode
+#    - golang/lint
+#    - peco/peco/cmd/peco
+#    - motemen/ghq
