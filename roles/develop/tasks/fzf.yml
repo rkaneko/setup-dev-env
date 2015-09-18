@@ -1,0 +1,8 @@
+---
+- name: git clone fzf
+  command: git clone --depth 1 https://github.com/junegunn/fzf.git {{ local_home }}/.fzf
+
+- name: install fzf
+  command: ./install
+  args:
+      chdir: "{{ local_home }}/.fzf/"

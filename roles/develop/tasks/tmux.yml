@@ -1,6 +1,6 @@
 ---
 - name: install tmux dependencies
-  sudo: yes
+  become: yes
   apt: name={{ item }}
        install_recommends=no
        update_cache=yes
@@ -8,44 +8,42 @@
   with_items:
     - libevent-dev
     - ncurses-dev
+    - build-essential
+    - autotools-dev
+    - automake
+    - pkg-config
 
-- name: download tmux
-  sudo: yes
-  get_url: url={{ tmux_dl_location }}
-           force=yes
-           dest=/usr/local/src
+- name: remove tmux src's dir if exists
+  become: yes
+  file: path=/usr/local/src/tmux
+        state=absent
 
-- name: unarchive tmux
-  sudo: yes
-  unarchive: src=/usr/local/src/{{ tmux_tar_ball }}
-             dest=/usr/local/src
+- name: git clone tmux
+  become: yes
+  command: git clone https://github.com/tmux/tmux.git
+  args:
+    chdir: /usr/local/src/
 
-# - name: clean tmux
-#   sudo: yes
-#   command: make clean
-#   args:
-#     chdir: /usr/local/src/{{ tmux_name}}{{ tmux_patch_version }}
-
-# - name: distclean tmux
-#   sudo: yes
-#   command: make distclean
-#   args:
-#     chdir: /usr/local/src/{{ tmux_name}}{{ tmux_patch_version }}
+- name: autogen.sh
+  become: yes
+  command: ./autogen.sh
+  args:
+      chdir: /usr/local/src/tmux/
 
 - name: configure tmux
-  sudo: yes
-  command: ./configure
+  become: yes
+  command: ./configure --prefix=/usr/local
   args:
-    chdir: /usr/local/src/{{ tmux_name}}{{ tmux_patch_version }}
+    chdir: /usr/local/src/tmux/
 
 - name: build tmux
-  sudo: yes
+  become: yes
   command: make
   args:
-    chdir: /usr/local/src/{{ tmux_name}}{{ tmux_patch_version }}
+    chdir: /usr/local/src/tmux/
 
 - name: install tmux
-  sudo: yes
+  become: yes
   command: make install
   args:
-    chdir: /usr/local/src/{{ tmux_name}}{{ tmux_patch_version }}
+    chdir: /usr/local/src/tmux/

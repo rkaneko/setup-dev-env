@@ -1,6 +1,6 @@
 ---
 - name: install cmd utilities
-  sudo: yes
+  become: yes
   apt: name={{ item }}
        install_recommends=no
        update_cache=yes

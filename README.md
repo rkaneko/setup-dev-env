@@ -8,15 +8,15 @@ Ansible setup for my dev env.
 ### Install ansible
 
 ```bash
-$ sudo apt-get install python-pip
+$ sudo apt-get install python-pip python-dev
 
-$ sudo pip install ansible
+$ sudo pip install ansible markupsafe
 ```
 
 ### Usage
 
 ```bash
-$ ansible-playbook -i localhost site.yml --ask-sudo-pass
+$ ansible-playbook -i localhost site.yml --ask-become-pass
 # step exec
-$ ansible-playbook -i localhost site.yml --ask-sudo-pass --step
+$ ansible-playbook -i localhost site.yml --ask-sudo-become--step
 ```

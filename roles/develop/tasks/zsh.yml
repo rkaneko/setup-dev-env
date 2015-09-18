@@ -1,6 +1,6 @@
 ---
 - name: install zsh
-  sudo: yes
+  become: yes
   apt: name={{ item }}
        install_recommends=no
        update_cache=yes
@@ -12,5 +12,5 @@
   command: touch {{ local_home }}/.zshrc.local
 
 - name: change login shell
-  sudo: yes
-  user: name={{ local_user }} state=present shell=/usr/zsh
+  become: yes
+  user: name={{ local_user }} state=present shell=/usr/bin/zsh

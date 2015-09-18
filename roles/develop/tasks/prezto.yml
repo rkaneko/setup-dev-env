@@ -1,3 +1,13 @@
 ---
+- name: remove prezto's dir if exists
+  become: yes
+  file: path={{ local_home }}/.zprezto
+        state=absent
+
 - name: git clone Prezto
   command: git clone https://github.com/sorin-ionescu/prezto {{ local_home }}/.zprezto
+
+- name: git pull and submodule update
+  command: git pull origin master && git submodule foreach git pull origin master
+  args:
+      chdir: "{{ local_home }}/.zprezto/"

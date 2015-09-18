@@ -1,6 +1,6 @@
 ---
   - include: init.yml
-  - include: vcs.yml
+#  - include: vcs.yml
   - include: dotfiles.yml
   - include: zsh.yml
   - include: vim.yml
@@ -9,3 +9,6 @@
   - include: tmux.yml
   - include: prezto.yml
   - include: pyenv.yml
+  - include: go-tools.yml
+  - include: fzf.yml
+  - include: end.yml

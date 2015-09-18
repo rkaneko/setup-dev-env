@@ -6,7 +6,7 @@
 #           sha256sum={{ go_sha1checksum }}
 
 - name: mkdir Go's dir
-  sudo: yes
+  become: yes
   file: path=/usr/local/go
         state=directory
         owner={{ local_user }}
@@ -14,21 +14,21 @@
         mode=0755
 
 - name: install Go
-  sudo: yes
+  become: yes
   unarchive: src=/tmp/{{ go_tar_ball }}
              dest=/usr/local/go
 
 - name: remove Go current version's dir if exists
-  sudo: yes
+  become: yes
   file: path=/usr/local/go/{{ go_version }}
         state=absent
 
 - name: rename Go install directory name
-  sudo: yes
+  become: yes
   command: mv /usr/local/go/go /usr/local/go/{{ go_version }}
 
 - name: change dir and files permission
-  sudo: yes
+  become: yes
   file: path=/usr/local/go/{{ go_version }}
         state=directory
         owner={{ local_user }}
@@ -56,11 +56,3 @@
     - "export PATH=$GOROOT/bin:$PATH"
     - "export GOPATH={{ local_home }}/go"
     - "export PATH=$GOPATH/bin:$PATH"
-
-#- name: go get go-tools
-#  shell: /usr/bin/zsh -lc "go get github.com/{{ item }}"
-#  with_items:
-#    - nsf/gocode
-#    - golang/lint
-#    - peco/peco/cmd/peco
-#    - motemen/ghq

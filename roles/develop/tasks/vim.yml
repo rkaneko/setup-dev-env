@@ -1,6 +1,6 @@
 ---
 - name: install Vim
-  sudo: yes
+  become: yes
   apt: name={{ item }}
        install_recommends=no
        update_cache=yes
