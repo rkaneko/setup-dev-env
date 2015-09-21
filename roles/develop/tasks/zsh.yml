@@ -11,6 +11,10 @@
 - name: touch .zshrc.local
   command: touch {{ local_home }}/.zshrc.local
 
+- name: change login shell
+  become: yes
+  shell: chsh -s /usr/bin/zsh {{ local_user }}
+
 #- name: change login shell
 #  become: yes
 #  user: name={{ local_user }} state=present shell=/usr/bin/zsh

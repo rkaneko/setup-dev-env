@@ -16,3 +16,14 @@
   command: ./install
   args:
       chdir: "{{ local_home }}/.fzf/"
+
+- name: add path for fzf
+  lineinfile:
+    dest="{{ local_home }}/.zshrc.local"
+    line="{{ item }}"
+    owner={{ local_user }}
+    state=present
+    insertafter=EOF
+    create=True
+  with_items:
+    - "[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh"
