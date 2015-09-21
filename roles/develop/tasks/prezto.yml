@@ -7,12 +7,9 @@
 - name: git clone Prezto
   command: git clone https://github.com/sorin-ionescu/prezto {{ local_home }}/.zprezto
 
-- name: git pull prezto master
-  command: git pull origin master
-  args:
-      chdir: "{{ local_home }}/.zprezto/"
-
-- name: git submodule update
-  command: git submodule foreach git pull origin master
+- name: git pull prezto master and update submodules
+  shell: |
+      git pull origin master
+      git submodule update --init --recursive
   args:
       chdir: "{{ local_home }}/.zprezto/"
