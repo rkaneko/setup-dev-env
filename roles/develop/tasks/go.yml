@@ -7,7 +7,7 @@
 
 - name: mkdir Go's dir
   become: yes
-  file: path=/usr/local/go
+  file: path={{ prefix }}/go
         state=directory
         owner={{ local_user }}
         group={{ local_user }}
@@ -16,20 +16,20 @@
 - name: install Go
   become: yes
   unarchive: src=/tmp/{{ go_tar_ball }}
-             dest=/usr/local/go
+             dest={{ prefix }}/go
 
 - name: remove Go current version's dir if exists
   become: yes
-  file: path=/usr/local/go/{{ go_version }}
+  file: path={{ prefix }}/go/{{ go_version }}
         state=absent
 
 - name: rename Go install directory name
   become: yes
-  command: mv /usr/local/go/go /usr/local/go/{{ go_version }}
+  command: mv {{ prefix }}/go/go {{ prefix }}/go/{{ go_version }}
 
 - name: change dir and files permission
   become: yes
-  file: path=/usr/local/go/{{ go_version }}
+  file: path={{ prefix }}/go/{{ go_version }}
         state=directory
         owner={{ local_user }}
         group={{ local_user }}
@@ -52,7 +52,7 @@
     insertafter=EOF
     create=True
   with_items:
-    - "export GOROOT=/usr/local/go/{{ go_version }}"
+    - "export GOROOT={{ prefix }}/go/{{ go_version }}"
     - "export PATH=$GOROOT/bin:$PATH"
     - "export GOPATH={{ local_home }}/go"
     - "export PATH=$GOPATH/bin:$PATH"

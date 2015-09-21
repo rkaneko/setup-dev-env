@@ -1,4 +1,14 @@
 ---
+- name: see if fzf exists or not
+  stat: path={{ local_home }}/.fzf
+  register: fzf
+
+- name: if fzf dir has existed, uninstall fzf
+  shell: |
+      {{ local_home }}/.fzf/uninstall
+      rm -rf {{ local_home }}/.fzf
+  when: fzf.stat.exists
+
 - name: git clone fzf
   command: git clone --depth 1 https://github.com/junegunn/fzf.git {{ local_home }}/.fzf
 

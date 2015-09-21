@@ -1,3 +1,0 @@
----
-- name: source .zshrc
-  command: source {{ local_host }}/.zshrc

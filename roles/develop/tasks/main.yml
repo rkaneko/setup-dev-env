@@ -11,4 +11,3 @@
   - include: pyenv.yml
   - include: go-tools.yml
   - include: fzf.yml
-  - include: end.yml

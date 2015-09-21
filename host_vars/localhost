@@ -2,8 +2,10 @@
 ansible_connection: local
 local_home: "{{ lookup('env', 'HOME') }}"
 local_user: "{{ lookup('env', 'USER') }}"
+prefix: "/usr/local"
 go_version: "1.5.1"
 go_target_os: "linux-amd64"
 go_tar_ball: "go{{ go_version }}.{{ go_target_os }}.tar.gz"
 go_sha1checksum: "5020af94b52b65cc9b6f11d50a67e4bae07b0aff"
 go_dl_location: "http://golang.org/dl/{{ go_tar_ball }}"
+gopath: "{{ local_home }}/go"

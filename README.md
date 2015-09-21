@@ -18,5 +18,5 @@ $ sudo pip install ansible markupsafe
 ```bash
 $ ansible-playbook -i localhost site.yml --ask-become-pass
 # step exec
-$ ansible-playbook -i localhost site.yml --ask-sudo-become--step
+$ ansible-playbook -i localhost site.yml --ask-become-pass --step
 ```

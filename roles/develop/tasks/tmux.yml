@@ -9,41 +9,40 @@
     - libevent-dev
     - ncurses-dev
     - build-essential
-    - autotools-dev
     - automake
     - pkg-config
 
 - name: remove tmux src's dir if exists
   become: yes
-  file: path=/usr/local/src/tmux
+  file: path={{ prefix }}/src/tmux
         state=absent
 
 - name: git clone tmux
   become: yes
   command: git clone https://github.com/tmux/tmux.git
   args:
-    chdir: /usr/local/src/
+    chdir: "{{ prefix }}/src/"
 
 - name: autogen.sh
   become: yes
   command: ./autogen.sh
   args:
-      chdir: /usr/local/src/tmux/
+      chdir: "{{ prefix }}/src/tmux/"
 
 - name: configure tmux
   become: yes
-  command: ./configure --prefix=/usr/local
+  command: ./configure --prefix={{ prefix }}
   args:
-    chdir: /usr/local/src/tmux/
+    chdir: "{{ prefix }}/src/tmux/"
 
 - name: build tmux
   become: yes
   command: make
   args:
-    chdir: /usr/local/src/tmux/
+    chdir: "{{ prefix }}/src/tmux/"
 
 - name: install tmux
   become: yes
   command: make install
   args:
-    chdir: /usr/local/src/tmux/
+    chdir: "{{ prefix }}/src/tmux/"
