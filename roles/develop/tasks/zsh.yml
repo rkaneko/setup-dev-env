@@ -9,7 +9,9 @@
     - zsh
 
 - name: touch .zshrc.local
-  command: touch {{ local_home }}/.zshrc.local
+  file: path={{ local_home }}/.zshrc.local
+        state=touch
+        mode=0644
 
 - name: change login shell
   become: yes
