@@ -29,13 +29,3 @@
     create=True
   with_items:
     - "[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh"
-
-- name: remove a fzf's path from .zshrc
-  lineinfile:
-    dest="{{ local_home }}/.zshrc 
-    line"{{ item }}"
-    owner={{ local_user }}
-    state=absent
-    insertafter=EOF
-  with_items: 
-    - "[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh"
