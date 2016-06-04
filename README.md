@@ -20,3 +20,9 @@ $ ansible-playbook -i localhost site.yml --ask-become-pass
 # step exec
 $ ansible-playbook -i localhost site.yml --ask-become-pass --step
 ```
+
+If u succeed setting up, start `zsh`.
+
+```bash
+$ zsh
+```
