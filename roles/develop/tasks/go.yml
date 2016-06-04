@@ -1,9 +1,11 @@
 ---
 - name: download Go
+  become: yes
   get_url: url={{ go_dl_location }}
            force=yes
            dest=/tmp
-#           sha256sum={{ go_sha1checksum }}
+           mode=0644
+           checksum={{ go_sha1checksum }}
 
 - name: mkdir Go's dir
   become: yes
@@ -13,10 +15,9 @@
         group={{ local_user }}
         mode=0755
 
-- name: install Go
+- name: unzip a Go archive
   become: yes
-  unarchive: src=/tmp/{{ go_tar_ball }}
-             dest={{ prefix }}/go
+  command: tar xzf /tmp/{{ go_tar_ball }} -C {{ prefix }}/go
 
 - name: remove Go current version's dir if exists
   become: yes
@@ -31,8 +32,6 @@
   become: yes
   file: path={{ prefix }}/go/{{ go_version }}
         state=directory
-        owner={{ local_user }}
-        group={{ local_user }}
         mode=0755
         recurse=yes
 
