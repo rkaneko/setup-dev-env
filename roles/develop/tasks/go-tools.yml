@@ -16,7 +16,7 @@
 - name: install go modules
   command: go get {{ item.item }}
   when: item.rc  == 1
-  with_items: go_module.results
+  with_items: "{{ go_module.results }}"
   environment:
     GOPATH: "{{ local_home }}/go"
     PATH: "{{ lookup('env', 'PATH') }}:{{ prefix }}/go/{{ go_version }}/bin"
