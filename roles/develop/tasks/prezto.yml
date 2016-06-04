@@ -5,11 +5,7 @@
         state=absent
 
 - name: git clone Prezto
-  command: git clone https://github.com/sorin-ionescu/prezto {{ local_home }}/.zprezto
-
-- name: git pull prezto master and update submodules
-  shell: |
-      git pull origin master
-      git submodule update --init --recursive
-  args:
-      chdir: "{{ local_home }}/.zprezto/"
+  git: repo=https://github.com/sorin-ionescu/prezto.git
+       dest={{ local_home }}/.zprezto
+       update=yes
+       recursive=yes

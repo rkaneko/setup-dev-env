@@ -4,7 +4,8 @@
         state=absent
 
 - name: git clone dotfiles
-  command: git clone https://github.com/rkaneko/dotfiles.git {{ local_home }}/dotfiles
+  git: repo=https://github.com/rkaneko/dotfiles.git
+       dest={{ local_home }}/dotfiles
 
 - name: mkdir bundle's dir
   file: path={{ local_home }}/dotfiles/.vim/bundle
@@ -14,7 +15,8 @@
         mode=0755
 
 - name: install NeoBundle.vim
-  command: git clone https://github.com/Shougo/neobundle.vim.git {{ local_home }}/dotfiles/.vim/bundle/neobundle.vim
+  git: repo=https://github.com/Shougo/neobundle.vim.git
+       dest={{ local_home }}/dotfiles/.vim/bundle/neobundle.vim
 
 - name: clean dotfiles
   file: path={{ local_home }}/{{ item.symlink }}
@@ -95,6 +97,7 @@
       symlink: ".gitconfig"
 
 - name: git submodule update --init
-  command: git submodule update --init
-  args:
-    chdir: "{{ local_home }}/dotfiles"
+  git: repo=https://github.com/rkaneko/dotfiles.git
+       dest={{ local_home }}/dotfiles
+       track_submodules=yes
+       update=yes

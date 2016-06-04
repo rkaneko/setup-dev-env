@@ -4,7 +4,8 @@
         state=absent
 
 - name: git clone pyenv 
-  command: git clone https://github.com/yyuu/pyenv.git {{ local_home }}/.pyenv
+  git: repo=https://github.com/yyuu/pyenv.git
+       dest={{ local_home }}/.pyenv
 
 - name: add path for pyenv
   lineinfile:
@@ -20,7 +21,8 @@
     - "eval $(pyenv init -)"
 
 - name: git clone pyenv-virtualenv
-  command: git clone https://github.com/yyuu/pyenv-virtualenv.git {{ local_home }}/.pyenv/plugins/pyenv-virtualenv
+  git: repo=https://github.com/yyuu/pyenv-virtualenv.git
+       dest={{ local_home }}/.pyenv/plugins/pyenv-virtualenv
 
 - name: add path for pyenv
   lineinfile:

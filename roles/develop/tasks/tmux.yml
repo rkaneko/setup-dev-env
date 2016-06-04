@@ -19,9 +19,8 @@
 
 - name: git clone tmux
   become: yes
-  command: git clone https://github.com/tmux/tmux.git
-  args:
-    chdir: "{{ prefix }}/src/"
+  git: repo=https://github.com/tmux/tmux.git
+       dest={{ prefix }}/src/tmux
 
 - name: autogen.sh
   become: yes
